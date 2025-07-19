@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.caf</groupId>
-  <artifactId>CentralAutomationFramework</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>automation</artifactId>
+  <version>1.0-${maven.build.timestamp}</version>
   <packaging>jar</packaging>
 
   <distributionManagement>
@@ -17,6 +17,7 @@
   </distributionManagement>
 
   <properties>
+    <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>18</maven.compiler.source>
     <maven.compiler.target>18</maven.compiler.target>
@@ -211,7 +212,27 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>3.0.0-M1</version>
       </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>timestamp</id>
+            <goals>
+              <goal>timestamp-property</goal>
+            </goals>
+            <phase>validate</phase>
+            <configuration>
+              <name>build.timestamp</name>
+              <pattern>yyyyMMdd-HHmmss</pattern>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
+
 
   </build>
 </project>
