@@ -1,4 +1,4 @@
-package com.caf.automation.web.annotation;
+package com.caf.automation.annotation;
 
 
 import io.qameta.allure.Epic;

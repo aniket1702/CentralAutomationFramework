@@ -1,4 +1,4 @@
-package com.caf.automation.web.loggers;
+package com.caf.automation.loggers;
 
 
 import org.apache.logging.log4j.Logger;

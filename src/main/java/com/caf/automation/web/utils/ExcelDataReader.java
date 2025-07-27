@@ -1,6 +1,7 @@
 package com.caf.automation.web.utils;
 
-import com.caf.automation.web.constants.Constant;
+import com.caf.automation.web.constants.CentralAutomationFramework;
+import com.caf.automation.web.exception.ExcelDataReadException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -16,16 +17,16 @@ import java.util.Map;
 
 public class ExcelDataReader {
 
-
+private ExcelDataReader(){}
     public static List<Map<String, String>> readData() {
 
-        String filePath = System.getProperty("user.dir") + "/src/test/resources/data/"+ Constant.TEST_DATA_FILE_NAME;
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/data/"+ CentralAutomationFramework.TEST_DATA_FILE_NAME;
         List<Map<String, String>> testDataList = new ArrayList<>();
 
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
             Workbook workbook = new XSSFWorkbook(fileInputStream);
-            Sheet sheet = workbook.getSheet(Constant.TEST_DATA_SHEET_NAME);
+            Sheet sheet = workbook.getSheet(CentralAutomationFramework.TEST_DATA_SHEET_NAME);
 
             Row rowHeader = sheet.getRow(0);
             int columns = rowHeader.getLastCellNum();
@@ -51,7 +52,7 @@ public class ExcelDataReader {
             workbook.close();
             fileInputStream.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ExcelDataReadException("Failed to read test data from Excel file: " + filePath, e);
         }
 
 

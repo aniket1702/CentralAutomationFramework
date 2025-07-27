@@ -1,11 +1,11 @@
-package com.caf.automation.web.listeners;
+package com.caf.automation.listeners;
 
 
-import com.caf.automation.web.annotation.AllureTest;
+import com.caf.automation.annotation.AllureTest;
 import com.caf.automation.web.constants.Constant;
 import com.caf.automation.web.driver.DriverManager;
-import com.caf.automation.web.enums.loggers.LogType;
-import com.caf.automation.web.loggers.LogUtils;
+import com.caf.automation.loggers.LogType;
+import com.caf.automation.loggers.LogUtils;
 import com.caf.automation.web.utils.InitializeSeleniumServer;
 import com.caf.automation.web.utils.ScreenshotProvider;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;

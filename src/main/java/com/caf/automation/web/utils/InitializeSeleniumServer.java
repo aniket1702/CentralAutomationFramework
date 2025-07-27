@@ -1,7 +1,7 @@
 package com.caf.automation.web.utils;
 
-import com.caf.automation.web.enums.loggers.LogType;
-import com.caf.automation.web.loggers.LogUtils;
+import com.caf.automation.loggers.LogType;
+import com.caf.automation.loggers.LogUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -48,10 +48,13 @@ public class InitializeSeleniumServer {
                     .findFirst()
                     .ifPresent(process -> {
                         isAlive.set(true);
-                        System.out.println("Process using port " + 4444 + " found with PID: " + process.pid());
+                        LogUtils.log(LogType.PASS, "Process using port " + 4444 + " found with PID: " + process.pid());
+
                     });
         } catch (UnsupportedOperationException e) {
-            System.err.println("ProcessHandle API is not supported on this platform.");
+
+            LogUtils.log(LogType.FAIL, "ProcessHandle API is not supported on this platform.");
+
         }
         return isAlive.get();
     }
@@ -88,9 +91,11 @@ public class InitializeSeleniumServer {
             } else {
                 LogUtils.log(LogType.FAIL, "Failed to kill process using port " + port);
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             LogUtils.log(LogType.FAIL, "Error executing command: " + e.getMessage());
-
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            LogUtils.log(LogType.FAIL, "Thread was interrupted while waiting for process to complete.");
         }
     }
 

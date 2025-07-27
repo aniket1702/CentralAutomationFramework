@@ -1,4 +1,4 @@
-package com.caf.automation.web.config;
+package com.caf.automation.config;
 
 import com.caf.automation.web.converter.RemoteModeTypeConverter;
 import com.caf.automation.web.converter.RunModeTypeConverter;
@@ -40,6 +40,8 @@ public interface IConfigurator extends Config {
     @ConverterClass(StringToUrlTypeConverter.class)
     URL baseURL();
 
+
+
     @Key("runModeType")
     @ConverterClass(RunModeTypeConverter.class)
     RunMode runModeType();
@@ -63,4 +65,20 @@ public interface IConfigurator extends Config {
 
     @Key("sheetName")
     String sheetName();
+
+    /**
+     * API Variables Configurations
+     */
+
+    @Key("baseURL")
+    String baseURLs();
+
+    @Key("kafka.key")
+    String kafkaKey();
+
+    @Key("kafka.topic")
+    String kafkaTopic();
+
+    @Key("kafka.groupId")
+    String kafkaGroupId();
 }

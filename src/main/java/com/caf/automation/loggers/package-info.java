@@ -14,4 +14,4 @@
  * @see com.automatrix.loggers.LogFactory
  * @see com.automatrix.loggers.LogUtils
  */
-package com.caf.automation.web.loggers;
+package com.caf.automation.loggers;

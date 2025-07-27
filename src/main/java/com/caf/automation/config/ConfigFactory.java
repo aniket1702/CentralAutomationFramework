@@ -1,4 +1,4 @@
-package com.caf.automation.web.config;
+package com.caf.automation.config;
 
 import org.aeonbits.owner.ConfigCache;
 

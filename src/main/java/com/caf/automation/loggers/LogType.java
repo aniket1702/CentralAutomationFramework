@@ -1,4 +1,4 @@
-package com.caf.automation.web.enums.loggers;
+package com.caf.automation.loggers;
 
 /**
  * <p>Enum representing different log types commonly used in the automation framework.</p>

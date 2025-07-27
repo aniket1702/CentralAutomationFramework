@@ -1,6 +1,6 @@
 package com.caf.automation.web.driver.remote.manager.selenium;
 
-import com.caf.automation.web.constants.Constant;
+import com.caf.automation.web.constants.CentralAutomationFramework;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -12,6 +12,6 @@ public final class SeleniumGridChromeManager {
 
         ChromeOptions chromeOptions = new ChromeOptions();
         
-        return new RemoteWebDriver(Constant.SELENIUM_GRID_URL, chromeOptions);
+        return new RemoteWebDriver(CentralAutomationFramework.SELENIUM_GRID_URL, chromeOptions);
     }
 }

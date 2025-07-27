@@ -7,5 +7,5 @@ package com.caf.automation.web.enums;
  */
 public enum RunMode {
     LOCAL,
-    REMOTE;
+    REMOTE
 }

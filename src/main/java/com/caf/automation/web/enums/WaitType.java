@@ -5,7 +5,7 @@ public enum WaitType {
     CLICKABLE,
     PRESENCE,
     VISIBLE,
-    NONE;
+    NONE
 
 
 }

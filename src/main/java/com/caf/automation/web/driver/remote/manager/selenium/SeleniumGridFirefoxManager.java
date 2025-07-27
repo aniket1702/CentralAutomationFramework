@@ -1,6 +1,6 @@
 package com.caf.automation.web.driver.remote.manager.selenium;
 
-import com.caf.automation.web.constants.Constant;
+import com.caf.automation.web.constants.CentralAutomationFramework;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -12,6 +12,6 @@ public final class SeleniumGridFirefoxManager {
     public static WebDriver getDriver() {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
 
-        return new RemoteWebDriver(Constant.SELENIUM_GRID_URL, firefoxOptions);
+        return new RemoteWebDriver(CentralAutomationFramework.SELENIUM_GRID_URL, firefoxOptions);
     }
 }

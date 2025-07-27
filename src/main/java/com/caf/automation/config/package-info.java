@@ -14,5 +14,5 @@
  * and environment variables for flexibility in defining test environment settings.
  * The package employs converters to handle data type conversions when retrieving configurations.
  */
-package com.caf.automation.web.config;
+package com.caf.automation.config;
 

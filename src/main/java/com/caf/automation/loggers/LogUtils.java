@@ -1,6 +1,5 @@
-package com.caf.automation.web.loggers;
+package com.caf.automation.loggers;
 
-import com.caf.automation.web.enums.loggers.LogType;
 import io.qameta.allure.Allure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

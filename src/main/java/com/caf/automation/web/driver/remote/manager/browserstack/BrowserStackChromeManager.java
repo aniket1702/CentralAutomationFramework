@@ -1,6 +1,6 @@
 package com.caf.automation.web.driver.remote.manager.browserstack;
 
-import com.caf.automation.web.constants.Constant;
+import com.caf.automation.web.constants.CentralAutomationFramework;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,7 +14,7 @@ public final class BrowserStackChromeManager {
     public static WebDriver getDriver() {
 
         MutableCapabilities capabilities = new MutableCapabilities();
-        capabilities.setCapability("browserName", Constant.BROWSER);
+        capabilities.setCapability("browserName", CentralAutomationFramework.BROWSER);
 
         HashMap<String, Object> browserstackOptions = new HashMap<>();
         browserstackOptions.put("os", "Windows");
@@ -25,6 +25,6 @@ public final class BrowserStackChromeManager {
         browserstackOptions.put("seleniumVersion", "4.13.0");
 
         capabilities.setCapability("bstack:options", browserstackOptions);
-        return new RemoteWebDriver(Constant.BROWSER_STACK_URL, capabilities);
+        return new RemoteWebDriver(CentralAutomationFramework.BROWSER_STACK_URL, capabilities);
     }
 }
