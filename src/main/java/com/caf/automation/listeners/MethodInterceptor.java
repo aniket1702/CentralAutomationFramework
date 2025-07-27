@@ -10,11 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MethodInterceptor implements IMethodInterceptor {
-    private final ExcelDataReader excelDataReader;
 
-    public MethodInterceptor() {
-        this.excelDataReader = new ExcelDataReader();
-    }
+
+
 
     @Override
     public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) {

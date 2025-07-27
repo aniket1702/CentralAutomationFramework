@@ -16,8 +16,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ExcelDataReader {
-
-private ExcelDataReader(){}
+    private ExcelDataReader() {
+        // Prevent instantiation
+        throw new UnsupportedOperationException("Utility class should not be instantiated");
+    }
     public static List<Map<String, String>> readData() {
 
         String filePath = System.getProperty("user.dir") + "/src/test/resources/data/"+ CentralAutomationFramework.TEST_DATA_FILE_NAME;

@@ -2,10 +2,10 @@ package com.caf.automation.listeners;
 
 
 import com.caf.automation.annotation.AllureTest;
-import com.caf.automation.web.constants.Constant;
-import com.caf.automation.web.driver.DriverManager;
 import com.caf.automation.loggers.LogType;
 import com.caf.automation.loggers.LogUtils;
+import com.caf.automation.web.constants.CentralAutomationFramework;
+import com.caf.automation.web.driver.DriverManager;
 import com.caf.automation.web.utils.InitializeSeleniumServer;
 import com.caf.automation.web.utils.ScreenshotProvider;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
@@ -38,7 +38,7 @@ import java.util.stream.Stream;
  * @see ISuiteListener
  * @see ITestListener
  * @see AllureTest
- * @see Constant
+ * @see CentralAutomationFramework
  * @see LogUtils
  * @see AllureEnvironmentWriter
  */
@@ -53,7 +53,7 @@ public class Listener implements ITestListener, ISuiteListener {
     @Override
     public void onStart(ISuite suite) {
 
-        if("remote".equalsIgnoreCase(String.valueOf(Constant.RUN_MODE_TYPE)))
+        if("remote".equalsIgnoreCase(String.valueOf(CentralAutomationFramework.RUN_MODE_TYPE)))
         {
 
                 InitializeSeleniumServer.startSeleniumServer();
@@ -68,9 +68,9 @@ public class Listener implements ITestListener, ISuiteListener {
                         .put("Java Home", System.getProperty("java.home"))
                         .put("Username", System.getProperty("user.name"))
                         .put("User Directory", System.getProperty("user.dir"))
-                        .put("Browser", Constant.BROWSER.toString())
+                        .put("Browser", CentralAutomationFramework.BROWSER.toString())
                         .put("Browser.Version", "latest")
-                        .put("URL", String.valueOf(Constant.BASE_URL)).build());
+                        .put("URL", String.valueOf(CentralAutomationFramework.BASE_URL)).build());
 
     }
 
