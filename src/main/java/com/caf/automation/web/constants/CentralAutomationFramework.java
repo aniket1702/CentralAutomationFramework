@@ -26,6 +26,7 @@ public final class CentralAutomationFramework {
 
     /** The Base URL for the application under test. */
     public static final URL BASE_URL = ConfigFactory.getConfig().baseURL();
+    public static final String API_BASE_URL = ConfigFactory.getConfig().baseURLs();
 
     /** The Remote Mode type for running tests. */
     public static final RemoteMode REMOTE_MODE_TYPE = ConfigFactory.getConfig().remoteModeType();
