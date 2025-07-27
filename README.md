@@ -75,7 +75,7 @@ To use this project as a GitHub dependency:
 </repository>
 ```
 
-Make sure to configure your GitHub credentials in your `.m2/settings.xml`.
+Make sure to configure your GitHub credentials in your `C:/Users/<username>/.m2/settings.xml`.
 
 ---
 
