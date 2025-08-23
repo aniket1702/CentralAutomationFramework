@@ -11,6 +11,7 @@ import com.caf.automation.web.utils.ScreenshotProvider;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Allure;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.*;
 
 import java.io.IOException;
@@ -53,13 +54,12 @@ public class Listener implements ITestListener, ISuiteListener {
     @Override
     public void onStart(ISuite suite) {
 
-        if("remote".equalsIgnoreCase(String.valueOf(CentralAutomationFramework.RUN_MODE_TYPE)))
-        {
 
-                InitializeSeleniumServer.startSeleniumServer();
+        copyHistoryToAllureResults();
 
-        }
         LogUtils.log(LogType.PASS, "Test suite started: " + suite.getName());
+        String buildName = "CAF_" + System.getenv().getOrDefault("BUILD_NUMBER", String.valueOf(System.currentTimeMillis()));
+        Allure.label("build", buildName);
         AllureEnvironmentWriter.allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
                         .put("OS", System.getProperty("os.name"))
@@ -70,9 +70,18 @@ public class Listener implements ITestListener, ISuiteListener {
                         .put("User Directory", System.getProperty("user.dir"))
                         .put("Browser", CentralAutomationFramework.BROWSER.toString())
                         .put("Browser.Version", "latest")
-                        .put("URL", String.valueOf(CentralAutomationFramework.BASE_URL)).build());
+                        .put("URL", String.valueOf(CentralAutomationFramework.BASE_URL))
+                        .put("Build", buildName).build());
 
+
+        if("remote".equalsIgnoreCase(String.valueOf(CentralAutomationFramework.RUN_MODE_TYPE)))
+        {
+
+            InitializeSeleniumServer.startSeleniumServer();
+
+        }
     }
+
 
     /**
      * Invoked after the execution of a test suite.
@@ -125,6 +134,7 @@ public class Listener implements ITestListener, ISuiteListener {
     public void onTestStart(ITestResult result) {
         LogUtils.log(LogType.PASS, "Test started: " + result.getMethod().getMethodName());
 
+
             AllureTest allureTest = result.getMethod().getConstructorOrMethod().getMethod().getAnnotation(AllureTest.class);
             if (allureTest != null) {
                 Allure.story(allureTest.story());
@@ -133,7 +143,13 @@ public class Listener implements ITestListener, ISuiteListener {
                 Allure.label("severity", allureTest.severity().toString());
             }
 
-
+// ===== Set BrowserStack test name =====
+        if (DriverManager.getDriver() != null) {
+            ((JavascriptExecutor) DriverManager.getDriver()).executeScript(
+                    "browserstack_executor: {\"action\": \"setSessionName\", \"arguments\": {\"name\": \""
+                            + result.getMethod().getMethodName() + "\"}}"
+            );
+        }
 
     }
 
@@ -146,7 +162,14 @@ public class Listener implements ITestListener, ISuiteListener {
      */
     @Override
     public void onTestSuccess(ITestResult result) {
+
         LogUtils.log(LogType.PASS, "Test passed: " + result.getName());
+        // ===== Mark BrowserStack session as passed =====
+        if (DriverManager.getDriver() != null) {
+            ((JavascriptExecutor) DriverManager.getDriver()).executeScript(
+                    "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\":\"Test passed successfully\"}}"
+            );
+        }
     }
 
 
@@ -158,11 +181,22 @@ public class Listener implements ITestListener, ISuiteListener {
      */
     @Override
     public void onTestFailure(ITestResult result) {
+
         if(DriverManager.getDriver()!=null)
         {
             ScreenshotProvider.getBase64Image();
         }
         LogUtils.log(LogType.FAIL, "Test failed: " + result.getName());
+
+        if (DriverManager.getDriver() != null) {
+            ScreenshotProvider.getBase64Image();
+
+            // ===== Mark BrowserStack session as failed =====
+            ((JavascriptExecutor) DriverManager.getDriver()).executeScript(
+                    "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \""
+                            + result.getThrowable().getMessage().replace("\"", "'") + "\"}}"
+            );
+        }
     }
 
     /**
@@ -219,6 +253,6 @@ public class Listener implements ITestListener, ISuiteListener {
     @Override
     public void onFinish(ITestContext context) {
         LogUtils.log(LogType.PASS, "Test context finished: " + context.getName());
-        copyHistoryToAllureResults();
+       // copyHistoryToAllureResults();
     }
 }
